@@ -11,7 +11,9 @@ const client = new Discord.Client({
 });
 
 require('dotenv').config();
+const { updateMembers } = require('./src/functions/member-count');
 
+const leave = require('./src/features/leave');
 const welcome = require('./src/features/welcome');
 const suggestion = require('./src/features/suggestion');
 const rankSelectMenu = require('./src/features/rankSelectMenu');
@@ -35,10 +37,12 @@ client.on('ready', async () => {
 		}
 	};
 
-	readCommands('commands');
-
 	commandBase.listen(client);
 
+	const guild = client.guilds.cache.get('936816603188822046');
+	updateMembers(guild);
+
+	leave(client);
 	welcome(client);
 	suggestion(client);
 	rankSelectMenu(client);

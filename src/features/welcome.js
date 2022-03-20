@@ -1,5 +1,9 @@
+const { updateMembers } = require('../functions/member-count');
+
 module.exports = (client) => {
 	client.on('guildMemberAdd', (member) => {
+		updateMembers(member.guild);
+
 		const welcomeChannelId = '953101421870469160';
 		const rulesChannelId = '953101583137251458';
 		const channel = member.guild.channels.cache.get(welcomeChannelId);
